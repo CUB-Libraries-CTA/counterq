@@ -153,20 +153,7 @@ class JournalBookData(filterQueryCounter):
 
 class culibrariesExportMetrics():
     def get(self, data,sheet_name='COUNTER'):
-        # # set filename for exported Excel file 
-        # filename = self.filename if hasattr(self, 'filename'
-        #     ) else 'CounterMetrics-report.xlsx'
-
-        # # set sheet title
-        # sheet_name = self.sheet_name if hasattr(self, 'sheet_name'
-        #     ) else 'COUNTER'
-
-        # create the dataframe
-        #data=self.get_data(self.request, format=format)
         df = pd.DataFrame(data)
-
-        # output to excel specifying date formats
-        #output = io.BytesIO()
         filename = next(tempfile._get_candidate_names())
         writer = pd.ExcelWriter(filename, engine='xlsxwriter',
             datetime_format='mmm yyyy', date_format='mmm yyyy')
@@ -211,5 +198,3 @@ class culibrariesExportMetrics():
 
         writer.save()
         return filename
-
-        #return response
