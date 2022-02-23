@@ -8,6 +8,6 @@ setup(name='counterq',
             'pandas',
             'boto3',
             'XlsxWriter==3.0.1',
-            'mysqlclient==2.0.3',
+            'mysqlclient',
             ],
 )
