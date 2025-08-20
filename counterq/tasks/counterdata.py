@@ -93,6 +93,7 @@ class filterQueryCounter():
                 params['start_date']=start_date
                 params['end_date']=end_date
                 inner_where.append("period<= :end_date AND period>= :start_date")
+
             elif k.lower()=='access_type':
                 val=v.split('|')
                 column='access_type'
@@ -101,6 +102,7 @@ class filterQueryCounter():
                 inner_where,params=self.appendvalues(val,column,operator,params,inner_where)
             elif k.lower()=='metric_type':
                 params['metric_type']=v
+
             elif k.lower()=="publisher":
                 column="publisher"
                 val=v.split('|')
@@ -113,6 +115,11 @@ class filterQueryCounter():
                 column="title"
                 val=v.split('|')
                 inner_where,params=self.setQuery(query_params,val,column,params,inner_where)
+            elif k.lower()=="isbn":
+                column="isbn"
+                val=v.split('|')
+                inner_where,params=self.setQuery(query_params,val,column,params,inner_where)
+
             elif k.lower()=="ordering":
                 if 'title' in v:
                     if len(v.split("-"))>1:
