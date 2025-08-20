@@ -1,10 +1,14 @@
-from celery.task import task
+from celery import Celery
+import celeryconfig
 from counterq.tasks import counterdata #, culibrariesExportMetrics
 import boto3, os
 
 # Model Title Report title_type values
 TITLE_TYPE_JOURNAL = 'J'
 TITLE_TYPE_EBOOK = 'B'
+
+app = Celery()
+app.config_from_object(celeryconfig)
 
 class ExportJournalMetricsView(counterdata.JournalBookData): # culibrariesExportMetrics, culibrariesFilterView):
     """
@@ -41,7 +45,7 @@ class ExportBookMetricsView(counterdata.JournalBookData): #culibrariesExportMetr
     filename = 'CounterMetrics-ebook.xlsx'
     sheet_name = 'eBook Metrics'
 
-@task()
+@app.task()
 def metric_export(params):
     task_id = str(metric_export.request.id)
     if params['title_type']==TITLE_TYPE_JOURNAL:
